@@ -5,7 +5,7 @@ module Api
       before_action :set_coupon, only: [:show, :update, :activate, :deactivate]
 
       def index
-        coupons = @merchant.coupons
+        coupons = @merchant.coupons.filter_by_status(params[:status])
         render json: CouponSerializer.new(coupons)
       end
 

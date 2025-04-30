@@ -122,5 +122,21 @@ RSpec.describe 'Coupons', type: :request do
         end
       end
     end
+
+    describe 'GET /api/v1/merchants/:merchant_id/coupons' do
+      let!(:active_coupons) { create_list(:coupon, 2, merchant: merchant, status: :active) }
+      let!(:inactive_coupons) { create_list(:coupon, 3, merchant: merchant, status: :inactive) }
+    
+      context 'with status=active' do
+        before { get "/api/v1/merchants/#{merchant.id}/coupons", params: { status: 'active' } }
+    
+        it 'returns only active coupons' do
+          expect(json[:data].count).to eq(2)
+          expect(json[:data].pluck(:attributes).pluck(:status)).to all(eq('active'))
+        end
+      end
+    end
+
+    
   end
 end

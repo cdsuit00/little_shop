@@ -4,18 +4,17 @@ module Api
       def index
         if params[:returned_items] == "true" || params[:status] == "returned"
           merchants = Merchant.with_returned_items
-      
         elsif params[:sorted] == "age"
           merchants = Merchant.sorted_by_created_at
-      
         elsif params[:count] == "true"
           merchants = Merchant.with_item_counts
           render json: MerchantSerializer.new(merchants, { params: { include_item_count: true } }) and return
-      
         else
-          merchants = Merchant.all
+          # Default case - include coupon counts
+          merchants = Merchant.with_coupon_counts.with_invoices_with_coupons_counts
         end
-      
+        
+        # For all cases except :count, use the standard serializer
         render json: MerchantSerializer.new(merchants)
       end
       

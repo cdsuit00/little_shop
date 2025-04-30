@@ -18,6 +18,14 @@ class Coupon < ApplicationRecord
     update!(status: 'inactive')
   end
 
+  def self.filter_by_status(status)
+    case status
+    when 'active' then where(status: :active)
+    when 'inactive' then where(status: :inactive)
+    else all
+    end
+  end
+
   private
 
   def active_coupon_limit

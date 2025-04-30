@@ -42,4 +42,16 @@ class Merchant < ApplicationRecord
   def active_coupons
     coupons.where(status: 'active')
   end
+
+  def self.with_coupon_counts
+    left_joins(:coupons)
+      .select('merchants.*, COUNT(DISTINCT coupons.id) AS coupons_count')
+      .group('merchants.id')
+  end
+
+  def self.with_invoices_with_coupons_counts
+    left_joins(:invoices)
+      .select('merchants.*, COUNT(DISTINCT CASE WHEN invoices.coupon_id IS NOT NULL THEN invoices.id END) AS invoices_with_coupons_count')
+      .group('merchants.id')
+  end
 end
