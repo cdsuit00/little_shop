@@ -17,7 +17,7 @@ module Api
         coupon = @merchant.coupons.new(coupon_params)
 
         if @merchant.active_coupons.count >= 5 && coupon_params[:status] == 'active'
-          render_error(["Maximum of 5 active coupons reached"], :unprocessable_entity)
+          #render_error(["Maximum of 5 active coupons reached"], :unprocessable_entity)
         elsif coupon.save
           render json: CouponSerializer.new(coupon), status: :created
         else
@@ -26,13 +26,13 @@ module Api
       end
 
       def update
-        if @merchant.active_coupons.count >= 5 && coupon_params[:status] == 'active' && @coupon.inactive?
-          render_error(["Maximum of 5 active coupons reached"], :unprocessable_entity)
-        elsif @coupon.update(coupon_params)
-          render json: CouponSerializer.new(@coupon)
-        else
-          render_error(@coupon.errors.full_messages)
-        end
+      #   if @merchant.active_coupons.count >= 5 && coupon_params[:status] == 'active' && @coupon.inactive?
+      #     render_error(["Maximum of 5 active coupons reached"], :unprocessable_entity)
+      #   elsif @coupon.update(coupon_params)
+      #     render json: CouponSerializer.new(@coupon)
+      #   else
+      #     render_error(@coupon.errors.full_messages)
+      #   end
       end
 
       def activate

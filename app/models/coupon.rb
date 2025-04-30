@@ -21,7 +21,7 @@ class Coupon < ApplicationRecord
   def self.filter_by_status(status)
     case status
     when 'active' then where(status: :active)
-    when 'inactive' then where(status: :inactive)
+    #when 'inactive' then where(status: :inactive)
     else all
     end
   end
@@ -30,7 +30,7 @@ class Coupon < ApplicationRecord
 
   def active_coupon_limit
     if status_changed?(to: 'active') && merchant.active_coupons.count >= 5
-      errors.add(:status, "Merchant can only have 5 active coupons at a time")
+    #  errors.add(:status, "Merchant can only have 5 active coupons at a time")
     end
   end
 end

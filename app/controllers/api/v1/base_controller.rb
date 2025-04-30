@@ -27,10 +27,10 @@ module Api
         }, status: status
       end
       
-      def min_price_exceeds_max_price?
-        params[:min_price].present? && params[:max_price].present? && 
-          params[:min_price].to_f > params[:max_price].to_f
-      end
+      # def min_price_exceeds_max_price?
+      #   params[:min_price].present? && params[:max_price].present? && 
+      #     params[:min_price].to_f > params[:max_price].to_f
+      # end
 
       def negative_price_params?
         (params[:min_price].present? && params[:min_price].to_f <= 0) || 

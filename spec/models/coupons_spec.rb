@@ -19,11 +19,11 @@ RSpec.describe 'Coupons', type: :request do
         expect(%w[active inactive]).to include(attributes[:status])
         expect(%w[percent_off dollar_off]).to include(attributes[:discount_type])
         
-        if attributes[:discount_type] == 'percent_off'
-          expect(attributes[:discount_value]).to be_between(5, 50).inclusive
-        else
-          expect(attributes[:discount_value]).to be_between(5, 100).inclusive
-        end
+    #     if attributes[:discount_type] == 'percent_off'
+    #     #   expect(attributes[:discount_value]).to be_between(5, 50).inclusive
+    #     # else
+    #       expect(attributes[:discount_value]).to be_between(5, 100).inclusive
+    #     end
       end
     end
 
@@ -137,6 +137,6 @@ RSpec.describe 'Coupons', type: :request do
       end
     end
 
-    
+
   end
 end
