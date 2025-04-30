@@ -1,6 +1,7 @@
 class Merchant < ApplicationRecord
   has_many :items, dependent: :destroy
   has_many :invoices, dependent: :destroy
+  has_many :coupons
   validates_presence_of :name
 
 
@@ -36,5 +37,9 @@ class Merchant < ApplicationRecord
 
   def item_count
     self[:item_count] || items.count
+  end
+
+  def active_coupons
+    coupons.where(status: 'active')
   end
 end

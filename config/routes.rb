@@ -20,8 +20,16 @@ Rails.application.routes.draw do
         resources :items, only: [:index], controller: 'merchant_items'
         resources :customers, only: [:index], controller: 'merchant_customers'
         resources :invoices, only: [:index], controller: 'merchant_invoices'
+      
+      # Added for coupons
+      resources :coupons, except: [:new, :edit, :destroy] do
+        member do
+          patch :deactivate
+          patch :activate
+        end
       end
-
+    end
+      
       resources :items, except: [:new, :edit] do
         get "merchant", to: "item_merchants#show"
       end
